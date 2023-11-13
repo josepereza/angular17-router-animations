@@ -1,14 +1,23 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
-
+import { ChildrenOutletContexts, RouterLink, RouterOutlet } from '@angular/router';
+import { slideInAnimation } from './animation';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet],
+  imports: [CommonModule, RouterOutlet,RouterLink],
+  animations: [
+    slideInAnimation
+  ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   title = 'angular17-router-animation';
+  constructor(private contexts: ChildrenOutletContexts) {}
+
+
+  getRouteAnimationData() {
+    return this.contexts.getContext('primary')?.route?.snapshot?.data?.['animation'];
+  }
 }
